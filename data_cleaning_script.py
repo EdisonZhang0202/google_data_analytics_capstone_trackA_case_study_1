@@ -186,3 +186,11 @@ print("\nAverage ride length (sorted by day of week):\n", divvy_tripdata_all_v2.
 # Analyze ridership data by type and weekday
 summary_stats = divvy_tripdata_all_v2.groupby(['member_casual', 'day_of_week']).agg( number_of_rides=('ride_id', 'count'), average_duration=('ride_length', 'mean') ).reset_index()
 print("\nSummary of rides and duration by rider type and weekday:\n", summary_stats)
+
+#==========================================
+# EXPORT SUMMARY FILE FOR FURTHER ANALYSIS
+#==========================================
+
+# Export the summary statistics to a new CSV file for further analysis
+summary_stats.to_csv('data/summary_stats_by_member_and_day.csv', index=False)
+print("Summary statistics exported to 'data/summary_stats_by_member_and_day.csv'.")

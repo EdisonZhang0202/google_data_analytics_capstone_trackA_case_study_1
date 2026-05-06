@@ -13,21 +13,70 @@ The objective of this analysis is to examine how **casual riders** and **annual 
 * Key variables:
 
   * `member_casual` (user type)
-  * `ride_length` (ride duration)
+  * `ride_length` (ride duration in seconds)
   * `day_of_week`
 
 ---
 
 ## Data Processing
 
-The dataset was cleaned and prepared to ensure accuracy and consistency:
+The data was processed and prepared using Python (Pandas) to ensure consistency, accuracy, and suitability for analysis.
 
-* Removed invalid or negative ride durations
-* Created derived fields:
+### Data Loading and Integration
 
-  * `ride_length` (calculated from timestamps)
-  * `day_of_week`
-* Aggregated data by user type and day of the week for analysis
+* Twelve monthly datasets (April 2025 – March 2026) were imported as separate DataFrames.
+* Column structures were verified to ensure consistency across all files.
+* All datasets were concatenated into a single unified DataFrame.
+* The combined dataset was exported and reloaded to validate successful integration.
+
+### Data Inspection
+
+* Initial exploratory checks were performed, including:
+
+  * Reviewing column names and data types
+  * Inspecting sample rows (head/tail)
+  * Generating summary statistics
+* Categorical variables such as `member_casual` and `rideable_type` were validated for consistency.
+* Missing values were identified and assessed.
+
+### Data Transformation
+
+* Timestamp fields (`started_at`, `ended_at`) were converted to datetime format.
+* Additional temporal features were derived:
+
+  * Date (start and end)
+  * Month, day, and year
+  * Day of the week
+* A new variable, `ride_length`, was calculated as the total ride duration in seconds.
+
+### Data Cleaning
+
+* Records associated with system maintenance or testing (e.g., station labeled "HQ QR") were removed.
+* Entries with invalid ride durations (negative values) were excluded.
+* A cleaned dataset (`v2`) was created to preserve data integrity and ensure reproducibility.
+
+### Data Structuring
+
+* The `day_of_week` variable was converted to an ordered categorical format to maintain correct chronological ordering (Sunday through Saturday).
+* The dataset was grouped by:
+
+  * Membership type (`member_casual`)
+  * Day of the week
+
+### Aggregation and Summary Metrics
+
+* Key metrics were calculated:
+
+  * Total number of rides
+  * Average ride duration
+* Summary statistics were generated using group-by operations to support comparative analysis between user types.
+
+### Data Export
+
+* The final aggregated dataset was exported as:
+
+  * `summary_stats_by_member_and_day.csv`
+* This file was used for visualization and downstream analysis.
 
 ---
 
@@ -113,21 +162,25 @@ The analysis is supported by the following visualizations:
 
 ### 1. Target Weekend Casual Riders
 
-Develop targeted marketing campaigns aimed at weekend users, when casual rider activity is highest. Promotional messaging can focus on the benefits of membership for frequent riders.
+Our goal is to increase the number of members, by selling membership to casual riders. A good method would be to develop targeted marketing marketing campaigns aimed at weekend users, when casual rider activity is highest. Promotional messaging can focus on the benefits of membership for frequent riders.
 
 ### 2. Emphasize Cost Efficiency
 
-Highlight the financial advantages of membership for users who ride frequently, particularly those who may transition from occasional to regular usage.
+Highlight the financial advantages of membership for users who ride frequently, particularly those who may transition from occasional to regular usage. One example would be to let casual members know after a certain number of rides, a membership would be cheaper.
 
 ### 3. Leverage Digital Marketing Channels
 
 Deploy targeted digital campaigns during peak casual usage periods (e.g., weekends), using messaging that encourages conversion based on observed usage behavior.
 
+### 4. Weekend Specific Memberships
+
+Create a membership specifically for weekend users. For example, half the price of a membership but only can used on Friday to Sunday. It can also be used as a gateway from casual  to weekend only membership to the standard membership, especially for riders that sometimes ride during the weekdays.
+
 ---
 
 ## Conclusion
 
-The analysis demonstrates clear behavioral differences between casual riders and annual members. Members use the service more frequently and consistently, likely for commuting, while casual riders engage in longer, leisure-based trips primarily on weekends. Effective conversion strategies should align with these existing behaviors to maximize the likelihood of increasing annual memberships.
+The analysis demonstrates clear behavioral differences between casual riders and annual members. Members use the service more frequently and consistently, likely for commuting, while casual riders engage in longer, leisure-based trips primarily on weekends. Effective conversion strategies should align with these existing behaviors to maximize the likelihood of increasing annual memberships. Effective strategies should align with existing behaviors, such as catering to them with specific memberships or deploy advertisements during peak casual periods, such as the weekends.
 
 ---
 
